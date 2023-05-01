@@ -1,0 +1,21 @@
+:root {
+    --color1: #234E6F;
+    --color2: #FBF8BF;
+}
+body{
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+}
+
+.c1{
+    color: var(--color1);
+}
+.c2{
+    color: var(--color2);
+}
+.bgc1{
+    background-color: var(--color1);
+}
+.bgc2{
+    background-color: var(--color2);
+}

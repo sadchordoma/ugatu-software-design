@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-Home | Shunter
+Shunter | All Pairs
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h2 class="text-center">Top 100 Crypto Assets for Today</h2>
+            <h2 class="text-center">All available pairs today</h2>
         </div>
     </div>
 </div>
@@ -19,13 +19,19 @@ Home | Shunter
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">exchange</th>
+                        <th scope="col">1 asset</th>
+                        <th scope="col">2 asset</th>
+                        <th scope="col">price</th>
                     </tr>
                 </thead>
-                    {% for key, value in assets.items %}
+                    {% for pair in assets %}
                     <tbody>
-                        <th scope="row">{{ key }}</th>
-                        <td>{{ value }}</td>
+                        <th scope="row">{{ pair.id }}</th>
+                        <td>{{ pair.exchange }}</td>
+                        <td>{{ pair.asset1 }}</td>
+                        <td>{{ pair.asset2 }}</td>
+                        <td>{{ pair.price }}</td>
                     </tbody>
                     {% endfor %}
             </table>

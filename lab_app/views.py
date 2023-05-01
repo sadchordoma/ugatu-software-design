@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 import webservice.webservice as wb
-from .forms import NewUserForm, CalculateSpreadForm
+from .forms import NewUserForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
@@ -10,6 +10,16 @@ from django.contrib.auth.forms import AuthenticationForm
 def home_page(request):
     context = {"assets": wb.get_top100_crypto_dict()}
     return render(request, "home.html", context)
+
+
+def all_pairs_request(request):
+    context = {"assets": wb.get_processed_data(1)}
+    return render(request, "all_pairs.html", context)
+
+
+def spread_today_request(request):
+    context = {"assets": wb.get_spread_from_processed_data(1)}
+    return render(request, "spread_today.html", context)
 
 
 def register_request(request):

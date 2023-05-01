@@ -50,9 +50,9 @@ def insert_rows_into_processed_data(connector: StoreConnector, dataframe: DataFr
         print('File records not found. Data inserting was canceled.')
 
 
-def select_rows_from_processed_data(connector: StoreConnector, source_file: int, offset: int) -> List[dict]:
-    selected_rows = connector.execute("""
-    SELECT * FROM crypto
+def select_rows_from_processed_data(connector: StoreConnector, source_file: int) -> List[dict]:
+    selected_rows = connector.execute(f"""
+    SELECT * FROM crypto where source_file = {source_file}
     """)
     dict_pairs = []
     for item in selected_rows.fetchall():

@@ -19,8 +19,3 @@ class NewUserForm(UserCreationForm):
             user.save()
         return user
 
-
-class CalculateSpreadForm(forms.Form):
-    buy_price = forms.DecimalField(label="Buy Price", max_digits=10, max_value=100000)
-    sell_price = forms.DecimalField(label="Buy Price", max_digits=10, max_value=100000)
-

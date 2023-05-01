@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Shunter | Spread
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center">All available spread today</h2>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div>
+            <table class="table fs-4">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">exchange 1</th>
+                        <th scope="col">price 1</th>
+                        <th scope="col">exchange 2</th>
+                        <th scope="col">price 2</th>
+                        <th scope="col">1 asset</th>
+                        <th scope="col">2 asset</th>
+                        <th scope="col">spread</th>
+                    </tr>
+                </thead>
+                    {% for pair in assets %}
+                    <tbody>
+                        <th scope="row">{{ pair.count }}</th>
+                        <th>{{ pair.exchange1 }}</th>
+                        <th>{{ pair.price1 }}$</th>
+                        <td>{{ pair.exchange2 }}</td>
+                        <td>{{ pair.price2 }}$</td>
+                        <td>{{ pair.asset1 }}</td>
+                        <td>{{ pair.asset2 }}</td>
+                        <td>{{ pair.spread }}%</td>
+                    </tbody>
+                    {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+  
+{% endblock %}
