@@ -50,10 +50,14 @@ def insert_rows_into_processed_data(connector: StoreConnector, dataframe: DataFr
         print('File records not found. Data inserting was canceled.')
 
 
-def select_rows_from_processed_data(connector: StoreConnector, source_file: int) -> List[dict]:
+def select_rows_from_processed_data(connector: StoreConnector, source_file: int, asset) -> List[dict]:
+    if asset is None:
+        return [{}]
     selected_rows = connector.execute(f"""
-    SELECT * FROM crypto where source_file = {source_file}
+    SELECT * FROM crypto WHERE source_file = '{source_file}' 
+    AND asset1 = '{asset}' OR asset2 = '{asset}'
     """)
+
     dict_pairs = []
     for item in selected_rows.fetchall():
         dict_pairs.append({"id": item[0],
@@ -79,3 +83,5 @@ def update_selected_row(connector: StoreConnector, values_to_change: dict):
     price = '{values_to_change["price"]}', source_file = '{values_to_change["source_file"]}'
     WHERE id = {values_to_change["id"]};
     """)
+
+

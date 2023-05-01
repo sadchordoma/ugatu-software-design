@@ -19,3 +19,7 @@ body{
 .bgc2{
     background-color: var(--color2);
 }
+
+.logout-welcome-user {
+    margin-left: 90rem;
+}

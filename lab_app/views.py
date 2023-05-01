@@ -17,8 +17,8 @@ def all_pairs_request(request):
     return render(request, "all_pairs.html", context)
 
 
-def spread_today_request(request):
-    context = {"assets": wb.get_spread_from_processed_data(1)}
+def spread_today_request(request, asset=None):
+    context = {"assets": wb.get_spread_from_processed_data(1, asset)}
     return render(request, "spread_today.html", context)
 
 

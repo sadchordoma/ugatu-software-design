@@ -38,11 +38,11 @@ def get_source_files_list() -> List[tuple]:
     return result
 
 
-def get_processed_data(source_file: int) -> List[dict]:
+def get_processed_data(source_file: int, asset) -> List[dict]:
     """ Получаем обработанные данные из основной таблицы """
     db_connector = SQLStoreConnectorFactory().get_connector(DB_URL)
     db_connector.start_transaction()  # начинаем выполнение запросов (открываем транзакцию)
-    result = sql_api.select_rows_from_processed_data(db_connector, source_file=source_file)
+    result = sql_api.select_rows_from_processed_data(db_connector, source_file=source_file, asset=asset)
     db_connector.end_transaction()  # завершаем выполнение запросов (закрываем транзакцию)
     db_connector.close()
     return result
@@ -55,15 +55,18 @@ def get_top100_crypto_dict() -> dict:
     return s
 
 
-def get_spread_from_processed_data(source_file: int) -> List[dict]:
-    data = get_processed_data(source_file)
+def get_spread_from_processed_data(source_file: int, asset=None) -> List[dict]:
+    data = get_processed_data(source_file, asset)
     # [{id, exchange, asset1, asset2, price}]
     possible_spread_table = []
+    added_index_table = {}
     for i in range(0, len(data)):
         for j in range(1, len(data)):
-            if data[i]["asset1"] == data[j]["asset1"]:
-                if data[i]["asset2"] == data[j]["asset2"]:
-                    possible_spread_table.append((data[i], data[j]))
+            if added_index_table.get(i) != j:
+                if data[i]["asset1"] == data[j]["asset1"]:
+                    if data[i]["asset2"] == data[j]["asset2"]:
+                        added_index_table[i] = j
+                        possible_spread_table.append((data[i], data[j]))
     spread_table = []
     count = 0
     for item in possible_spread_table:
@@ -79,4 +82,5 @@ def get_spread_from_processed_data(source_file: int) -> List[dict]:
                  "exchange2": second_set["exchange"],
                  "price2": second_set["price"], "asset1": first_set["asset1"],
                  "asset2": second_set["asset2"], "spread": round(spread, 2)})
+    print(len(spread_table))
     return spread_table

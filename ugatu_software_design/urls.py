@@ -29,4 +29,5 @@ urlpatterns = [
     path('logout', logout_request, name='logout'),
     path('all_pairs', all_pairs_request, name='all_pairs'),
     path('spread_today', spread_today_request, name='spread_today'),
+    path('spread_today/<str:asset>', spread_today_request, name='spread_today_with_asset'),
 ]
