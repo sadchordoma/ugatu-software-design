@@ -50,8 +50,32 @@ def insert_rows_into_processed_data(connector: StoreConnector, dataframe: DataFr
         print('File records not found. Data inserting was canceled.')
 
 
-def select_rows_from_processed_data(connector: StoreConnector, source_file: int, offset: int) -> List[tuple]:
-    selected_rows = connector.execute(f"""
+def select_rows_from_processed_data(connector: StoreConnector, source_file: int, offset: int) -> List[dict]:
+    selected_rows = connector.execute("""
     SELECT * FROM crypto
     """)
-    return selected_rows.fetchall()
+    dict_pairs = []
+    for item in selected_rows.fetchall():
+        dict_pairs.append({"id": item[0],
+                           "exchange": item[1],
+                           "asset1": item[2],
+                           "asset2": item[3],
+                           "price": item[4],
+                           "source_file": item[5]
+                           })
+    return dict_pairs
+
+
+def delete_selected_row(connector: StoreConnector, row: dict):
+    connector.execute(f"""
+    DELETE FROM crypto WHERE id = {row["id"]};
+    """)
+
+
+def update_selected_row(connector: StoreConnector, values_to_change: dict):
+    connector.execute(f"""
+    UPDATE crypto set exchange = '{values_to_change["exchange"]}',
+    asset1 = '{values_to_change["asset1"]}', asset2 = '{values_to_change["asset2"]}',
+    price = '{values_to_change["price"]}', source_file = '{values_to_change["source_file"]}'
+    WHERE id = {values_to_change["id"]};
+    """)

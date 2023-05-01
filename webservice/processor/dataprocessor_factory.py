@@ -46,7 +46,7 @@ class DataProcessorFactory:
             self._processor = processor
 
     def create_xlsx_processor(self, datasource: str) -> None:
-        """ Создаем CsvDataProcessor и пытаемся прочитать данные, если удачно, сохраняем объект в атрибуте класса """
+        """ Создаем XlsxDataProcessor и пытаемся прочитать данные, если удачно, сохраняем объект в атрибуте класса """
         processor = XlsxDataProcessor(datasource)
         if processor.read():
             self._processor = processor

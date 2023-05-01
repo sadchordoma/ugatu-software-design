@@ -1,8 +1,9 @@
+import os.path
 from typing import List
 
-from config import DB_URL                       # параметры подключения к БД из модуля конфигурации config.py
-from repository import sql_api                 # подключаем API для работы с БД
-from repository.connectorfactory import SQLStoreConnectorFactory
+from config import DB_URL  # параметры подключения к БД из модуля конфигурации config.py
+from .repository import sql_api  # подключаем API для работы с БД
+from .repository.connectorfactory import SQLStoreConnectorFactory
 
 """
     В данном модуле реализуются бизнес-логика обработки клиентских запросов.
@@ -37,7 +38,7 @@ def get_source_files_list() -> List[tuple]:
     return result
 
 
-def get_processed_data(source_file: int, page_num: int = None) -> List[tuple]:
+def get_processed_data(source_file: int, page_num: int = None) -> List[dict]:
     """ Получаем обработанные данные из основной таблицы """
     db_connector = SQLStoreConnectorFactory().get_connector(DB_URL)
     db_connector.start_transaction()  # начинаем выполнение запросов (открываем транзакцию)
@@ -47,5 +48,8 @@ def get_processed_data(source_file: int, page_num: int = None) -> List[tuple]:
     return result
 
 
-result = get_processed_data(1, 1)
-print(result)
+def get_top100_crypto_dict():
+    with open("webservice/data/top100_crypto.txt", "r") as f:
+        s = f.read().split("\n")
+    s = {i + 1: s[i] for i in range(len(s))}
+    return s

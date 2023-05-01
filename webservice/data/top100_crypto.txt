@@ -1,0 +1,100 @@
+bitcoin
+ethereum
+tether
+bnb
+usd coin
+xrp
+cardano
+dogecoin
+polygon
+solana
+polkadot
+litecoin
+binance usd
+tron
+shiba inu
+avalanche
+dai
+wrapped bitcoin
+chainlink
+unus sed leo
+cosmos
+uniswap
+okb
+monero
+internet computer
+ethereum classic
+toncoin
+stellar
+bitcoin cash
+filecoin
+hedera
+trueusd
+aptos
+cronos
+lido dao
+arbitrum
+near protocol
+vechain
+apecoin
+quant
+algorand
+the graph
+fantom
+eos
+the sandbox
+multiversx
+decentraland
+aave
+theta network
+stacks
+pax dollar
+tezos
+axie infinity
+flow
+bitdao
+rocket pool
+immutable
+conflux
+render token
+chiliz
+kucoin token
+neo
+curve dao token
+usdd
+klaytn
+optimism
+casper
+maker
+terra classic
+bitcoin sv
+injective
+gmx
+synthetix
+zcash
+bittorrent(new)
+mina
+ecash
+huobi token
+dash
+xdc network
+frax share
+iota
+pax gold
+pancakeswap
+gatetoken
+gemini dollar
+trust wallet token
+flare
+loopring
+zilliqa
+thorchain
+woo network
+dydx
+singularitynet
+nexo
+convex finance
+kava
+enjin coin
+1inch network
+osmosis

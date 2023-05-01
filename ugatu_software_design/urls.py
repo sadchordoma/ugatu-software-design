@@ -18,10 +18,13 @@ from django.contrib import admin
 from django.urls import path
 
 
-from lab_app.views import home_page
+from lab_app.views import home_page, register_request, login_request, logout_request
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # my added urls
-    path('', home_page, name="home"),
+    path('', home_page, name='home'),
+    path('register/', register_request, name='register'),
+    path('login', login_request, name='login'),
+    path('logout', logout_request, name='logout'),
 ]

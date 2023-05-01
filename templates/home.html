@@ -1,11 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>test</title>
-</head>
-<body>
-    <h1>lalalal</h1>
-    <h2>lalalala</h2>
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Home | Shunter
+{% endblock %}
+
+{% block content %}
+    <h1> Статья</h1>
+    <br><br>
+    <h1>Top 100 Crypto Assets for Today</h1>
+    <div>
+        <ul>
+        {% for key, value in assets.items %}
+            <li>{{ key }} - {{  value }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

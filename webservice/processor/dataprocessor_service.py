@@ -1,5 +1,4 @@
 from .dataprocessor_factory import DataProcessorFactory
-
 """
     В данном модуле реализуется класс с основной бизнес-логикой приложения. 
     Обычно такие модули / классы имеют в названии слово "Service".

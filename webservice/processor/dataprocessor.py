@@ -140,10 +140,10 @@ class TxtDataProcessor(DataProcessor):
 
 
 class XlsxDataProcessor(DataProcessor):
-    """ Реализация класса-обработчика txt-файлов """
+    """ Реализация класса-обработчика Excel-файлов """
 
     def read(self):
-        """ Реализация метода для чтения Excel-файла (разедитель колонок - пробелы) """
+        """ Реализация метода для чтения Excel-файла"""
         try:
             self._dataset = pandas.read_excel(self._datasource)
             col_names = self._dataset.columns
@@ -169,3 +169,5 @@ class XlsxDataProcessor(DataProcessor):
 
     def print_result(self):
         print(f'Running XLSX-file processor!\n', self.result)
+
+
