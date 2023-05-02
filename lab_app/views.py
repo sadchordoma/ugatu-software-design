@@ -8,6 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 def home_page(request):
+    wb.check_for_new_files()
     context = {"assets": wb.get_top100_crypto_dict()}
     return render(request, "home.html", context)
 

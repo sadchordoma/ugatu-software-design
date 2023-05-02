@@ -1,31 +1,16 @@
-import os.path
+import os
 from typing import List
 
 from config import DB_URL  # параметры подключения к БД из модуля конфигурации config.py
 from .repository import sql_api  # подключаем API для работы с БД
 from .repository.connectorfactory import SQLStoreConnectorFactory
 
+from datetime import datetime
+
 """
     В данном модуле реализуются бизнес-логика обработки клиентских запросов.
     Здесь также могут применяться SQL-методы, представленные в модуле repository.sql_api
 """
-
-# Структура основного навигационнго меню (<nav>) веб-приложения,
-# оформленное в виде объекта dict
-navmenu = [
-    {
-        'name': 'HOME',
-        'addr': '/'
-    },
-    {
-        'name': 'ABOUT',
-        'addr': '#'
-    },
-    {
-        'name': 'CONTACT US',
-        'addr': '/contact'
-    },
-]
 
 
 def get_source_files_list() -> List[tuple]:
@@ -38,7 +23,7 @@ def get_source_files_list() -> List[tuple]:
     return result
 
 
-def get_processed_data(source_file: int, asset) -> List[dict]:
+def get_processed_data(source_file: int, asset=None) -> List[dict]:
     """ Получаем обработанные данные из основной таблицы """
     db_connector = SQLStoreConnectorFactory().get_connector(DB_URL)
     db_connector.start_transaction()  # начинаем выполнение запросов (открываем транзакцию)
@@ -56,6 +41,8 @@ def get_top100_crypto_dict() -> dict:
 
 
 def get_spread_from_processed_data(source_file: int, asset=None) -> List[dict]:
+    if asset is None:
+        return [{}]
     data = get_processed_data(source_file, asset)
     # [{id, exchange, asset1, asset2, price}]
     possible_spread_table = []
@@ -84,3 +71,25 @@ def get_spread_from_processed_data(source_file: int, asset=None) -> List[dict]:
                  "asset2": second_set["asset2"], "spread": round(spread, 2)})
     print(len(spread_table))
     return spread_table
+
+
+def check_for_new_files():
+    # находит первый найденный еще не записанный в бд файл
+    all_files_in_dir = os.listdir(r"D:\5.UNIK\ugatu-software-design\webservice\data")
+    all_files_xlsx = [file for file in all_files_in_dir if file.endswith(".xlsx")]
+    result = get_source_files_list()
+    j = -1
+    for i in range(len(result)):
+        j += 1
+        if result[i][1] != all_files_xlsx[j]:
+            print(all_files_xlsx[j])
+            return
+        else:
+            date_db = result[i][2].split(":")
+            hour_db = date_db[0].split(" ")[-1]
+            minute_db = date_db[-1]
+            curr_hour = datetime.now().hour
+            curr_min = datetime.now().minute
+            if hour_db != curr_hour and minute_db != curr_min:
+                print(all_files_xlsx[j])
+                return
