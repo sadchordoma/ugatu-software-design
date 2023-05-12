@@ -1,7 +1,7 @@
 import os
 from typing import List
 
-from config import DB_URL  # параметры подключения к БД из модуля конфигурации config.py
+from config import DB_URL, DIR_TO_FILES_URL, FILE_TOP_100_CRYPTO  # параметры подключения к БД из модуля конфигурации config.py
 from .repository import sql_api  # подключаем API для работы с БД
 from .repository.connectorfactory import SQLStoreConnectorFactory
 
@@ -34,7 +34,7 @@ def get_processed_data(source_file: int, asset=None) -> List[dict]:
 
 
 def get_top100_crypto_dict() -> dict:
-    with open("webservice/data/top100_crypto.txt", "r") as f:
+    with open(FILE_TOP_100_CRYPTO, "r") as f:
         s = f.read().split("\n")
     s = {i + 1: s[i] for i in range(len(s))}
     return s
@@ -75,7 +75,7 @@ def get_spread_from_processed_data(source_file: int, asset=None) -> List[dict]:
 
 def check_for_new_files():
     # находит первый найденный еще не записанный в бд файл
-    all_files_in_dir = os.listdir(r"D:\5.UNIK\ugatu-software-design\webservice\data")
+    all_files_in_dir = os.listdir(DIR_TO_FILES_URL)
     all_files_xlsx = [file for file in all_files_in_dir if file.endswith(".xlsx")]
     result = get_source_files_list()
     j = -1
